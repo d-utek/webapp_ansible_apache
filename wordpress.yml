@@ -1,0 +1,12 @@
+---
+- hosts: prod
+  become: true #elevage de privilege
+  vars:
+    system_user: admin
+  vars_files:
+    - files/secrets/credential.yml
+  pre_tasks:
+    - name: create www-data
+      user: name=www-data state=present
+  roles:
+    - { role: ansible-role-containerized-wordpress }
